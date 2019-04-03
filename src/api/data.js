@@ -2,28 +2,28 @@ import axios from '@/libs/api.request'
 
 export const getTableData = () => {
   return axios.request({
-    url: 'get_table_data',
+    url: 'http://localhost:8090/get_table_data',
     method: 'get'
   })
 }
 
 export const getDragList = () => {
   return axios.request({
-    url: 'get_drag_list',
+    url: 'http://localhost:8090/get_drag_list',
     method: 'get'
   })
 }
 
 export const errorReq = () => {
   return axios.request({
-    url: 'error_url',
+    url: 'http://localhost:8090/error_url',
     method: 'post'
   })
 }
 
 export const saveErrorLogger = info => {
   return axios.request({
-    url: 'save_error_logger',
+    url: 'http://localhost:8090/save_error_logger',
     data: info,
     method: 'post'
   })
@@ -31,21 +31,21 @@ export const saveErrorLogger = info => {
 
 export const uploadImg = formData => {
   return axios.request({
-    url: 'image/upload',
+    url: 'http://localhost:8090/image/upload',
     data: formData
   })
 }
 
 export const getOrgData = () => {
   return axios.request({
-    url: 'get_org_data',
+    url: 'http://localhost:8090/get_org_data',
     method: 'get'
   })
 }
 
 export const getTreeSelectData = () => {
   return axios.request({
-    url: 'get_tree_select_data',
+    url: 'http://localhost:8090/get_tree_select_data',
     method: 'get'
   })
 }

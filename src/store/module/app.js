@@ -9,12 +9,12 @@ import {
   routeEqual,
   getRouteTitleHandled,
   localSave,
-  localRead
+  localRead, backendMenusToRouters
 } from '@/libs/util'
 import { saveErrorLogger } from '@/api/data'
 import router from '@/router'
-import routers from '@/router/routers'
 import config from '@/config'
+import { listUserMenus } from '@/api/user'
 const { homeName } = config
 
 const closePage = (state, route) => {
@@ -32,13 +32,21 @@ export default {
     homeRoute: {},
     local: localRead('local'),
     errorList: [],
-    hasReadErrorPage: false
+    hasReadErrorPage: false,
+    routers: [],
+    hasGetRouter: false
   },
   getters: {
-    menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.user.access),
+    menuList: (state, getters, rootState) => getMenuByRouter(state.routers, rootState.user.access),
     errorCount: state => state.errorList.length
   },
   mutations: {
+    setRouters (state, routers) {
+      state.routers = routers
+    },
+    setHasGetRouter (state, status) {
+      state.hasGetRouter = status
+    },
     setBreadCrumb (state, route) {
       state.breadCrumbList = getBreadCrumbList(route, state.homeRoute)
     },
@@ -100,6 +108,22 @@ export default {
       }
       saveErrorLogger(info).then(() => {
         commit('addError', data)
+      })
+    },
+    getRouters ({ commit }) {
+      return new Promise((resolve, reject) => {
+        try {
+          listUserMenus().then(res => {
+            let routers = backendMenusToRouters(res.data)
+            commit('setRouters', routers)
+            commit('setHasGetRouter', true)
+            resolve(routers)
+          }).catch(err => {
+            reject(err)
+          })
+        } catch (error) {
+          reject(error)
+        }
       })
     }
   }

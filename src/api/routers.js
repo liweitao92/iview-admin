@@ -2,7 +2,7 @@ import axios from '@/libs/api.request'
 
 export const getRouterReq = (access) => {
   return axios.request({
-    url: 'get_router',
+    url: 'http://localhost:8090/get_router',
     params: {
       access
     },
