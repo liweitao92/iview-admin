@@ -111,10 +111,10 @@ export default {
         try {
           getUserInfo().then(res => {
             const data = res.data
-            commit('setAvatar', data.avatar)
-            commit('setUserName', data.name)
-            commit('setUserId', data.user_id)
-            commit('setAccess', data.access)
+            commit('setAvatar', '')
+            commit('setUserName', data.result.user.name)
+            commit('setUserId', data.result.user.id)
+            commit('setAccess', data.result.roles)
             commit('setHasGetInfo', true)
             resolve(data)
           }).catch(err => {

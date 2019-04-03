@@ -21,8 +21,8 @@ export const getUserInfo = () => {
 
 export const logout = (token) => {
   return axios.request({
-    url: 'logout',
-    method: 'post'
+    url: '/authorize/login-out',
+    method: 'get'
   })
 }
 
